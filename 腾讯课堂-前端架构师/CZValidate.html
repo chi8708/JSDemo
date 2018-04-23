@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<!--仿bootstrap validate验证-->
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/czVal.js"></script>
+  <style>
+  .invalid-feedback{
+    display:block;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <form id="form-val" style="margin-top: 200px;">
+      <div class="form-group row justify-content-md-center">
+        <div class="col-md-4 mb-3 ">
+          <label for="validationDefault01">First name</label>
+          <input data-cz-required="true"  type="text" class="form-control" placeholder="First name" value="Mark">
+        </div>
+      </div>
+      <div class="form-group row justify-content-md-center">
+          <div class="col-md-4 mb-3 ">
+            <label for="validationDefault01">url</label>
+            <input data-cz-url="true"  type="text" class="form-control" >
+          </div>
+        </div>
+      <div>
+        <div class="form-group row">
+          <div class="col-md-4  offset-md-4">
+            <button class="btn btn-primary" type="submit">Submit form</button>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  </script>
+</body>
+<script type="text/javascript">
+  $(function () {
+    $("#form-val").validate();
+  
+  })
+</script>
+
+</html>
