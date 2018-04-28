@@ -1,10 +1,10 @@
-(function(window)  {
+(function(root)  {
     function jQuery(params) {
     
         switch (typeof params) {
             case 'function':
                // window.onload=params;
-               window.addEventListener('load',params);
+               root.addEventListener('load',params);
                 break;
             case 'string':
                 alert(params);
@@ -18,5 +18,5 @@
     function $(params) {
         return new jQuery(params);
     }
-    window.$=window.jQuery=$;
+    root.$=root.jQuery=$;
 })(window)

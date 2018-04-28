@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #first{color: red;}
+        #second{color: #0000ff;}
+    </style>
+</head>
+<body>
+  <!--生命周期
+    1.加载html和dom
+    2.执行js
+  -->
+    <div id="first"></div>
+    
+    <script type="text/javascript">
+        function addEle(ele,message){
+            var ch=document.createElement('li');
+            ch.textContent=message;
+            ele.appendChild(ch);
+        }
+        addEle(document.getElementById("first"),'loadingPage');
+    </script>
+    
+    <div id="second"></div>
+
+    <script type="text/javascript">
+        document.body.addEventListener("mouseover",function(){
+            addEle(document.getElementById("second"),'mouseover')
+        })
+    </script>
+</body>
+</html>
