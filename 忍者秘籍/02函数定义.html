@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        //1.存储函数 将函数存下来
+        var sotre = {
+            nextId: 1,
+            cache: [],
+            add: function (fn) {
+                if (!fn.id) {
+                    fn.id = sotre.nextId++;
+                    this.cache[fn.id] = fn;
+                    return fn.id;
+                }
+            }
+        }
+        function fun() { }
+        sotre.add(fun);
+        console.log("fId:" + fun.id + "sId:" + sotre.cache[fun.id]);
+
+        //2.记忆函数 将函数结果存下来 是否素数
+
+        function isPrime(value) {
+            if (!isPrime.Result) {
+                isPrime.Result = {};
+            }
+            if (isPrime.Result[value]) {
+                return isPrime.Result[value];
+            }
+
+            var prime = value !== 0 && value !== 1;
+            for (let index = 2; index < value; index++) {
+                if (value % 2 == 0) {
+                    prime = false;
+                    break;
+                }
+            }
+            return isPrime.Result[value] = prime;
+        }
+        console.log(isPrime(5));
+        console.log(isPrime.Result[5]);
+        console.log(isPrime(4));
+
+        //3.函数定义
+        //3.1函数声明
+        function sortAsc(a, b) {
+            return a - b;
+        }
+        //3.2函数表达式
+        var sortAsc2 = function (a, b) {
+            return a - b;
+        }
+        //3.3箭头函数
+        var sortAsc3 = (a, b) => a - b;
+
+        var numbers = [2, 1, 5, 4, 3];
+        numbers.sort(sortAsc);
+        console.log(numbers);
+        numbers.sort(sortAsc2);
+        console.log(numbers);
+        numbers.sort(sortAsc3);
+        console.log(numbers);
+
+        //4.剩余参数
+        function funMore(a,...b){
+            console.log("a:"+a+"b:"+b);
+        }
+        funMore(1,2,3)
+
+        //5.默认参数
+        function funDef(a,b=0){
+            console.log("a:"+a+"b:"+b);
+        }
+        funDef(1)
+        funDef(1,2,3)
+    </script>
+</body>
+
+</html>
