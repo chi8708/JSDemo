@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        //调用方式
+        //1 直接调用
+        function say() {
+            return this;
+        }
+        console.log(say());
+
+        //2作为方法对象方法调用
+        var p = {
+        }
+        p.say = say;
+        console.log(p.say());
+
+        //3构造函数调用
+        var student = {
+            name: 'jack'
+        };
+        function Person() {
+            this.name = 'rose';
+            // return student;//构造函数将放回全局对象student 
+            return 1;//构造函数将返回Person实例 直接已函数调用将返回1
+        }
+        console.log(new Person().name);
+        console.log(Person());
+    </script>
+
+    <input type="button" id="btn" value="this作用域" />
+    <script type="text/javascript">
+        function Buttton() {
+            //  this.onClick=function(){
+            //      console.log(this);
+            //  }
+            this.onClick = () => console.log(this);
+        }
+        var button = new Buttton();
+        // document.getElementById("btn").addEventListener('click',button.onClick);//button中this指向btn dom；
+        //  document.getElementById("btn").addEventListener('click',button.onClick.bind(button));//修改this指向button；
+        document.getElementById("btn").addEventListener('click', button.onClick);//箭头函数button中this指向button；
+        var button2 = new Buttton();
+        button2.click = true;
+        document.getElementById("btn").addEventListener('click', button2.onClick);//箭头函数button中this指向button2；
+        var b = {
+            onClick: () => console.log(this)
+        }
+        document.getElementById("btn").addEventListener('click', b.onClick);//全局对象字面量中的箭头函数this指向window；
+
+        //4.call 和apply 调用
+        function forEach(list, callBack) {
+            for (var i = 0; i < list.length; i++)
+                callBack.call(list[i], i);//call修改this指向list的每个对象
+        }
+
+        var p2 = [{ name: 'jack' }, { name: 'rose' }];
+        forEach(p2, function () {
+            console.log(this);
+        })
+
+        //this指向
+        //对象字面量
+        var ninja1 = {
+            whowAmI: function () {
+                return this;
+            }
+        }
+        var ninja2 = {
+            whowAmI: ninja1.whowAmI
+        }
+        console.log(ninja1.whowAmI() === ninja1);//true;
+        console.log(ninja2.whowAmI() === ninja2);//true;
+
+        var method = ninja2.whowAmI;
+        console.log(method());//window
+
+      //箭头函数
+       function Ninja(){
+            // this.whowAmI=()=> {
+            //     return this;
+            // }
+            //等价bind
+            this.whowAmI=(function() {
+                return this;
+            }).bind(this);
+        }
+        var ninja3=new Ninja();
+        var ninja4 = {
+            whowAmI: ninja3.whowAmI
+        }
+        console.log(ninja3.whowAmI() === ninja3);//true;
+        console.log(ninja4.whowAmI() === ninja4);//false;
+
+
+    </script>
+</body>
+
+</html>
