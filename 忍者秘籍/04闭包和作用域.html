@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style>
+        .ani{
+            width: 100px;
+            height: 100px;
+            background-color: #ff0000;
+            margin: 5px;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="ani1" class="ani" ></div>
+    <div id="ani2"  class="ani" style="top:200px;"></div>
+    <script type="text/javascript">
+        //在函数中声明内部函数，不仅声明而且创建了闭包，
+        //内部函数和其中的使用的变量会一直保存在内存中
+        var last;
+        var name = 'jack';
+        function outerFunction() {
+            var lastName = 'rose';
+            function innerFunction() {
+                console.log(name);
+                return lastName;
+            }
+
+            last = innerFunction;
+        }
+        outerFunction();
+        console.log(last());
+
+        //函数代码在每次调用时都会创建函数上下文,所以变量tick相互不影响
+        function myanimation(eleId){
+            var tick=0;
+            var ele=document.getElementById(eleId);
+            var timer= setInterval(function(){
+                if(tick<100){
+                    ele.style.left=tick+10+'px';
+                    tick++;
+                }
+                else {
+                    clearInterval(timer);
+                }
+            },10)
+        }
+        Myanimation("ani1");
+        Myanimation("ani2");
+    </script>
+
+</body>
+
+</html>
