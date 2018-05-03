@@ -51,8 +51,21 @@
                 }
             },10)
         }
-        Myanimation("ani1");
-        Myanimation("ani2");
+        myanimation("ani1");
+        myanimation("ani2");
+
+        //const声明的变量值不可以修改，但定义的数组可以push元素，对象可以添加修改属性值
+        const obj={Id:2};
+        obj.Id=1;
+        console.log(obj);
+
+        const arr=[];
+        arr.push(1);
+        console.log(arr);
+
+        const i=1;
+        i=2;
+
     </script>
 
 </body>
