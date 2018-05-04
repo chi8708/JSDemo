@@ -21,7 +21,7 @@
     <div id="ani1" class="ani" ></div>
     <div id="ani2"  class="ani" style="top:200px;"></div>
     <script type="text/javascript">
-        //在函数中声明内部函数，不仅声明而且创建了闭包，
+        //1在函数中声明内部函数，不仅声明而且创建了闭包，
         //内部函数和其中的使用的变量会一直保存在内存中
         var last;
         var name = 'jack';
@@ -37,7 +37,7 @@
         outerFunction();
         console.log(last());
 
-        //函数代码在每次调用时都会创建函数上下文,所以变量tick相互不影响
+        //2函数代码在每次调用时都会创建函数上下文,所以变量tick相互不影响
         function myanimation(eleId){
             var tick=0;
             var ele=document.getElementById(eleId);
@@ -54,7 +54,7 @@
         myanimation("ani1");
         myanimation("ani2");
 
-        //const声明的变量值不可以修改，但定义的数组可以push元素，对象可以添加修改属性值
+        //3const声明的变量值不可以修改，但定义的数组可以push元素，对象可以添加修改属性值
         const obj={Id:2};
         obj.Id=1;
         console.log(obj);
@@ -63,8 +63,26 @@
         arr.push(1);
         console.log(arr);
 
-        const i=1;
-        i=2;
+        //const i=1;
+        //i=2;
+        
+        //1闭包私有变量 公开属性
+        function Ninja(){
+            var rate=0;
+            this.getRate=function(){
+                return rate;
+            }
+            this.Rate=function(){
+                rate++;
+            }
+        }
+        var ninja1=new Ninja();
+        ninja1.Rate();
+        console.log(ninja1.getRate());
+        var ninja2=new Ninja();
+        console.log(ninja2.getRate());//新作用域
+        var obj1=ninja1;
+        console.log(obj1.getRate());//obj1实例指向ninja1
 
     </script>
 
