@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script type="text/javascript">
+
+        //1 生成器基本使用 遇到return 将结束yield返回
+        function* getName() {
+            yield "jack";
+            yield* getName2();
+        }
+        function* getName2() {
+            yield "rose";
+            yield "chi";
+            return "zwj";
+            yield "lucy";
+        }
+
+        //for (const item of getName()) {
+        //    console.log(item);
+        //}
+        //创建1个迭代器
+        let name = getName();//用var 那么是字符串 报错Uncaught TypeError: name.next is not a function
+        console.log(name);
+        console.log(name.next());
+        let item = null;
+        while (!(item = name.next()).done) {
+            console.log(item);
+        }
+
+        //2 id生成器
+        function* IdGen() {
+            let id = 1;
+            while (true) {
+                yield id++;
+            }
+        }
+        let idGen = IdGen();
+        console.log(idGen.next());
+        console.log(idGen.next());
+        console.log(idGen.next());
+    </script>
+
+    <div>
+        <div id="div-search">
+            <form>
+                <div>
+                    <span>姓名:</span>
+                    <input type="text">
+                    <span>年龄:</span>
+                    <input type="text">
+                </div>
+                <input type="button" value="提交">
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        //3 dom遍历 
+        //a.递归
+        function domFor(ele, callBack) {
+            if (!ele) {
+                return;
+            }
+            if (callBack) {
+                callBack(ele);
+            }
+
+            var firstEle = ele.firstElementChild;
+            if (firstEle) {
+                domFor(firstEle, callBack);
+            }
+            sib = ele.nextElementSibling;
+            domFor(sib, callBack);
+
+        }
+
+        domFor(document.getElementById("div-search"), function (arg) {
+            console.log(arg);
+        })
+
+
+        //b.yield 
+        console.log(document.getElementById("div-search").children);
+        function* domFor2(ele) {
+            if (!ele) {
+                return;
+            }
+            yield ele;
+            var firstEle = ele.firstElementChild;
+            if (firstEle) {
+                yield* domFor2(firstEle);
+            }
+            var sib = ele.nextElementSibling;
+            yield* domFor2(sib);
+        }
+        for (const item of domFor2(document.getElementById("div-search"))) {
+            console.log(item);
+        }
+
+
+    </script>
+</body>
+
+</html>
