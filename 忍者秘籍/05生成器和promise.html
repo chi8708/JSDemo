@@ -105,6 +105,21 @@
             console.log(item);
         }
 
+        console.log("3");
+        //忍者源代码
+        function* DomTraversal(element) {
+            yield element;
+            element = element.firstElementChild;
+            while (element) {
+                yield* DomTraversal(element);
+                element = element.nextElementSibling;
+            }
+        }
+
+        const subTree = document.getElementById("div-search");
+        for (let element of DomTraversal(subTree)) {
+           console.log(element);
+        }
 
     </script>
 </body>
