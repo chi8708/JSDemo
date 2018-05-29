@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <script type="text/javascript">
+
+        //1. 原型
+       //每个函数都有一个prototype原型属性，prototype 包含constructor属性指向此方法
+        function Ninja(){
+
+        }
+        const ninja1=new Ninja();
+        Ninja.prototype.say=function(){
+            console.log("hello");
+        }
+        ninja1.say();//可以调用
+        console.log(ninja1.constructor===Ninja);
+        console.log(ninja1.constructor===Ninja.prototype.constructor)
+        //Ninja.prototype={name:'jack'};
+        //const ninja2=new Ninja();
+        //ninja2.say();//prototype完全重新 不可以调用
+        
+        //2.继承
+        function Person(){
+            this.Name='Person';
+        }
+
+        function Student(){
+        }
+        Student.prototype=new Person();
+        //不使用Person.prototype原因是，Student.prototype改变将影响Person的原型
+        console.log(Student.prototype.constructor);//Student的构造函数将指向Person
+        //解决如下
+        Object.defineProperty(Student.prototype,'constructor',{
+            enumerable: false,
+            value: Ninja,
+            writable: true
+          })
+          console.log(Student.prototype.constructor);
+
+    </script>
+</body>
+</html>
