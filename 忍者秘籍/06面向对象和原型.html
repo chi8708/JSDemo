@@ -24,6 +24,7 @@
         //Ninja.prototype={name:'jack'};
         //const ninja2=new Ninja();
         //ninja2.say();//prototype完全重新 不可以调用
+        //Ninja.go=function() //静态方法
         
         //2.继承
         function Person(){
@@ -43,6 +44,33 @@
           })
           console.log(Student.prototype.constructor);
 
+          //3.class
+          class Animal{
+              constructor(name){
+                  this.Name=name;
+              }
+              go(){
+                  console.log(this.Name+"go");
+              }
+          }
+
+          //继承
+          class Cat extends Animal{
+              constructor(name,age){
+                  super(name);//调用父构造函数
+                  this.Age=age;
+              }
+              //静态方法
+              static cry(){
+                  console.log("cry");
+              }
+          }
+        
+          const c=new Cat('小猫');
+          console.log(Animal.prototype);
+          console.log(Cat.prototype);
+          c.go();
+          Cat.cry();
     </script>
 </body>
 </html>
