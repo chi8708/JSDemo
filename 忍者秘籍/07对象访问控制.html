@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script type="text/javascript">
+        //1.get set属性ES6
+        const people = {
+            name: 'jack',
+            get Name() {
+                return this.name
+            },
+            set Name(value) {
+                this.name = value;
+            }
+        }
+        console.log(people.name)
+        console.log(people.Name);
+
+        //构造函数 get set属性
+        function People2() {
+            //this.name='ff';
+            let name = 'rose';//私有变量
+            Object.defineProperty(this, 'Name', {
+                get: () => { return name },
+                set: (value) => { name = value }
+            })
+        }
+        var p2 = new People2();
+        console.log(p2.name);
+        console.log(p2.Name);
+
+        //class get set；
+        class People3 {
+            constructor(name) {
+                this.name = name;
+            }
+            get Name() {
+                return this.name;
+            }
+            set Name(value) {
+                this.name = value;
+            }
+        }
+        var p3 = new People3('chi');
+        p3.Name = 'chi2';
+        console.log(p3.name);
+        console.log(p3.Name);
+
+        //2.代理 
+        //emperor和representative的属性是相互影响的
+        const emperor = { name: "Komei" };
+        const representative = new Proxy(emperor, {
+            get: (target, key) => {
+                return key in target ? target[key]
+                    : "Don’t bother the emperor!"
+            },
+            set: (target, key, value) => {
+                target[key] = value;
+            }
+        })
+        emperor.name='cc';
+        console.log(emperor.name);
+        console.log(representative.name);
+        
+        representative.name='ccc';
+        console.log(emperor.name);
+        console.log(representative.name);
+
+    </script>
+</body>
+
+</html>
