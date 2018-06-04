@@ -73,6 +73,24 @@
         console.log(emperor.name);
         console.log(representative.name);
 
+        //3代理属性填充 代理还可实现数组负索引
+          function Folder() {
+		  return new Proxy({}, {
+		    get: (target, property) => {
+		       if(!(property in target)) {
+		          target[property] = new Folder();
+		       }
+
+		       return target[property];
+		    }
+		  });
+		}
+
+		const rootFolder = new Folder();
+       rootFolder.ninjasDir.firstNinjaDir.ninjaFile = "yoshi.txt";
+       
+       
+
     </script>
 </body>
 
