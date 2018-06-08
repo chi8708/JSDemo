@@ -50,6 +50,11 @@
       var a2=[1,3,2,5,4];
       a2.sort((a,b)=>a-b);
       console.log(a2);
+      //reduce：将会将return结果传入下一次reduce函数。求和
+      var sum=a2.reduce(function(arr,num){
+          return arr+num;
+      })
+      console.log(sum);
 
       //查找：find返回第一个 filter返回满足条件多个
       names.push('lucy2');
@@ -67,6 +72,31 @@
       names.forEach(n=>{
           console.log(n);
       })
+
+      //2.map
+      var peoples=new Map();
+      var p1={"id":1,name:'jack'};
+      var p2={"id":2,name:'rose'};
+      peoples.set(p1.id,p1);
+      peoples.set(p2.id,p2);
+      console.log(peoples.get(p1.id));
+      for (const p of peoples) {
+          console.log(p);
+          console.log(p[1]);
+      }
+      for(const k of peoples.keys()){
+          console.log(k);
+      }
+      peoples.forEach(n=>{
+          console.log(n);
+      })
+
+      //3 Set不重复key
+      const ninjas = new Set(["Kuma", "Hattori", "Yagyu", "Hattori"]);
+      console.log(ninjas.size);
+      for(var ninja of ninjas){
+          console.log(ninja);
+      }
     </script>
 </body>
 </html>
