@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../require.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        requirejs.config({
+            paths: {
+                "jquery": "../jquery",
+                "math1":'./math'
+            }
+        });
+
+        define('MouseHandler', ['jquery'], $ => {
+            let numClicks = 0;
+            var click = () => {
+                numClicks++;
+                alert(numClicks);
+            }
+            return {
+                CountClick: () => {
+                    $(document).on('click', click);
+                }
+            }
+        });
+
+        require(['MouseHandler'], MouseCounterModule => {
+            MouseCounterModule.CountClick();
+        });
+        require(['math1'], function (math) {
+            alert(math.add(1, 3));
+        });
+    </script>
+</body>
+
+</html
