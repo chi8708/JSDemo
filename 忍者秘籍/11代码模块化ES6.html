@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="../traceur.js"></script>
+    <script src="../es6-module-loader.js"></script>
+</head>
+
+<body>
+    <script type="module">
+        // import {message, sayHiToNinja}  from "hello.js";
+        import * as hello from "hello.js";//as后，只能使用別名
+        alert(hello.message);
+        alert(hello.sayHiToNinja());
+
+        //默認導入和{}導入
+        import ImportedNinja from "NinjaModule.js";
+        import { compareNinjas } from "NinjaModule.js";
+        const ninja1 = new ImportedNinja("Yoshi");
+        const ninja2 = new ImportedNinja("Hattori");
+        console.log(ninja1 !== null && ninja2 !== null);
+
+        console.log(!compareNinjas(ninja1, ninja2));
+
+    </script>
+</body>
+
+</html>
