@@ -118,8 +118,71 @@
 
         const subTree = document.getElementById("div-search");
         for (let element of DomTraversal(subTree)) {
-           console.log(element);
+            console.log(element);
         }
+
+
+        //promise
+        let promise1 = new Promise(resolve => {
+            console.log("promise1Call");
+            setTimeout(() => {
+                resolve("hello")
+            }, 1000)
+
+        });
+
+        let promise2 = new Promise(resolve => {
+            console.log("promise2Call");
+            return promise1.then(r => {
+                resolve("promise2")
+            });
+        });
+
+        let instance1 = promise1.then(r => {
+            console.log(r);
+            return r;
+        })
+
+        console.log(instance1);
+        instance1.then(t => {
+            console.log(t + "111");
+        })
+
+        let instance2 = promise2
+            .then(function (r) {
+                console.log(r);
+                return promise1;
+            })
+
+        console.log(instance2);
+
+
+        //all使用
+        var p1 = Promise.resolve(3);
+        var p2 = 1337;
+        var p3 = new Promise((resolve, reject) => {
+            setTimeout(resolve, 100, 'foo');
+        });
+
+        Promise.all([p1, p2, p3]).then(values => {
+            console.log(values);
+        });
+
+     //  [3, 1337, "foo"] 
+
+    //  Promise.all 的异步和同步
+    //  如果传入的参数为空的可迭代对象，则同步返回一个已完成（already resolved）状态的 Promise；
+    //  非空时则返回一个异步完成（asynchronously resolved） Promise
+
+       var iterable = [Promise.resolve(1), Promise.resolve(2)];
+
+        var p = Promise.all(iterable);
+
+        console.log(p);
+
+        setTimeout(function(){
+            console.log(p);
+        },1000);
 
     </script>
 </body>
