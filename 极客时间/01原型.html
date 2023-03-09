@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // es6 用法
+        // Object.create 根据指定的原型创建新对象，原型可以是 null；Object.getPrototypeOf 获得一个对象的原型；Object.setPrototypeOf 设置一个对象的原型
+        var cat = {
+            say() {
+                console.log("meow~");
+            },
+            jump() {
+                console.log("jump");
+            }
+        }
+
+        var tiger = Object.create(cat, {
+            say: {
+                writable: true,
+                configurable: true,
+                enumerable: true,
+                value: function () {
+                    console.log("roar!");
+                }
+            }
+        })
+
+
+        var anotherCat = Object.create(cat);
+
+        anotherCat.say();
+
+        var anotherTiger = Object.create(tiger);
+
+        anotherTiger.say();
+
+
+        //构造器 constructor
+        function Person(first, last, age, gender, interests) {
+            this.age=age;
+            // 属性与方法定义
+
+        };
+
+        var person1 = new Person('Tammi', 'Smith', 32, 'neutral', ['music', 'skiing', 'kickboxing']);
+        var person3 = new person1.constructor('Karen', 'Stephenson', 26, 'female', ['playing drums', 'mountain climbing']);
+        console.log(person3);
+
+    </script>
+</body>
+
+</html>
