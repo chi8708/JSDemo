@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    //fetch使用
+    const fetchPromise = fetch('https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json');
+
+    console.log(fetchPromise);
+
+    fetchPromise.then(response => {
+        console.log(`已收到响应：${response.status}`);
+    });
+
+    console.log("已发送请求……")
+    //链式promise
+    const fetchPromise2 = fetch('https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json');
+    // fetchPromise2.then(response => {
+    //     const jsonPromise = response.json();
+    //     jsonPromise.then(json => {
+    //         console.log(json[0].name);
+    //     });
+    // });
+
+    //等效上面代码
+    fetchPromise2
+        .then(response => {
+            return response.json();
+        })
+        .then(json => {
+            console.log(json[0].name);
+        });
+
+    //异常捕获
+    const fetchPromise3 = fetch('bad-scheme://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json');
+
+    fetchPromise3
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP 请求错误：${response.status}`);
+            }
+            return response.json();
+        })
+        .then(json => {
+            console.log(json[0].name);
+        })
+        .catch(error => {
+            console.error(`无法获取产品列表：${error}`);
+        });
+
+    //async await
+    async function fetchProducts() {
+        try {
+            // 在这一行之后，我们的函数将等待 `fetch()` 调用完成
+            // 调用 `fetch()` 将返回一个“响应”或抛出一个错误
+            const response = await fetch('https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json');
+            if (!response.ok) {
+                throw new Error(`HTTP 请求错误：${response.status}`);
+            }
+            // 在这一行之后，我们的函数将等待 `response.json()` 的调用完成
+            // `response.json()` 调用将返回 JSON 对象或抛出一个错误
+            const json = await response.json();
+            console.log(json[0].name);
+        }
+        catch (error) {
+            console.error(`无法获取产品列表：${error}`);
+        }
+    }
+
+    fetchProducts();
+
+
+    async function fetchProducts() {
+        try {
+            const response = await fetch('https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json');
+            if (!response.ok) {
+                throw new Error(`HTTP 请求错误：${response.status}`);
+            }
+            const json = await response.json();
+            return json;
+        }
+        catch (error) {
+            console.error(`无法获取产品列表：${error}`);
+        }
+    }
+
+    const jsonPromise = fetchProducts();//返回Promise
+    //console.log(json[0].name);   // json 是一个 Promise 对象，因此这句代码无法正常工作
+    jsonPromise.then((json) => console.log(json[0].name));
+
+</script>
+
+
+<body>
+
+</body>
+
+</html>

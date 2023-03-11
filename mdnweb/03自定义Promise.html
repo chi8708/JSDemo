@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <button id="set-alarm">Set alarm</button>
+    <div id="output"></div>
+
+    <script>
+
+
+        const output = document.querySelector('#output');
+        const button = document.querySelector('#set-alarm');
+
+        function setAlarm() {
+            window.setTimeout(() => {
+                output.textContent = 'Wake up!';
+            }, 1000);
+        }
+
+        //button.addEventListener('click', setAlarm);
+
+
+        //Promise 构造器
+        function alarm(person, delay) {
+
+            return new Promise((resolve, reject) => {
+                if (delay < 0) {
+                    throw new Error('Alarm delay must not be negative');
+                }
+                setTimeout(resolve(`Wake up2, ${person}`), 1000);
+            });
+        }
+
+        button.addEventListener('click', () => {
+            alarm('cts', 1)
+                .then(message => output.textContent = message)
+                .catch(error => output.textContent = `Couldn't set alarm: ${error}`);
+        });
+        //等效 上面代码 Promise 返回的结果可以使用then 或await接收
+        button.addEventListener('click', async (d) => {
+            try {
+                const message = await alarm('cts2', 1);
+                output.textContent = message;
+                console.log(d);
+            }
+            catch (error) {
+                output.textContent = `Couldn't set alarm: ${error}`;
+            }
+        });
+
+    </script>
+</body>
+
+</html>
