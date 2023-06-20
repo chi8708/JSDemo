@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>防抖。。。。。</h1>
+    <div id="msg"></div>
+</body>
+</html>
+
+<script>
+//JavaScript 防抖的作用是避免在频繁的用户操作时，
+//触发过多的代码执行，从而导致页面性能下降或出现不必要的问题。
+//防抖函数可以延迟一定时间再执行所需的代码，等待用户输入完成或操作结束后再进行处理，
+//从而减少不必要的代码执行次数和资源消耗，提高页面的响应速度和用户体验。适用于输入框搜索、滚动加载、窗口大小改变等场景。
+
+    function sayHello(name,age){
+        const msg=`抖动。。。。name:${name||''} age:${age||0}`;
+        console.log(msg);
+        let child = document.createElement('p')
+        child.innerHTML=`<p>${msg}</p>`;
+        document.querySelector("#msg").appendChild(child);
+    }
+    
+    // let timeId;
+    // window.onresize=function(){
+    //     clearTimeout(timeId);
+    //     timeId= setTimeout(()=>{
+    //         sayHello();
+    //     },1000);    
+    // }
+
+    //通用方法
+    function debounce(func, delay,...args) {
+        let timeId;
+        return function(){
+            timeId&&clearTimeout(timeId);
+            timeId=setTimeout(()=>{
+                func.apply(this,args);
+            },delay)
+        }
+    }
+    //1秒内请求一次
+    window.onresize=debounce(sayHello,1000,'jack',18);
+</script>
