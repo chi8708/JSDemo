@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="./02全局js模块化.js"></script>
+<script>
+    window.onload=function(){
+
+       window.TestModule.sayHello('全局封装模块化隔离');
+       let result= window.TestModule.add(1,2,3);
+       alert(`累加为:${result}`);
+    }
+</script>
+<body>
+</body>
+</html>
