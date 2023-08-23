@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <div>推荐使用 Hello1() 方式定义属性(方法)，这种方式this永远指向对象实例。箭头函数this将指向外层。</div>
+</head>
+<body>
+    <script type="text/javascript">
+        let name="全局";
+        class Person{
+            constructor(name){
+                this.name=name;
+            }
+            Hello1(){
+                console.log(`Hello1()${this.name}`)//输出Person1
+            }
+            Hello2=function(){
+                console.log(`Hello2=function(){}${this.name}`)//输出Person1
+            }
+            Hello3=()=>{
+                console.log(`Hello3=()=>{}${this.name}`)//输出Person1
+            }
+        }
+
+        let person1=new Person("Person1");
+         person1.Hello1(); person1.Hello2(); person1.Hello3();
+         Hello4();//输出空
+
+        let person2={
+            name:'初始化字面量',
+            Hello1(){
+                console.log(`Hello1()${this.name}`)// 输出初始化字面量
+            },
+            Hello2:function (){
+                console.log(`Hello2=function(){}${this.name}`)// 输出初始化字面量
+            },
+            Hello3:()=>{
+                console.log(`Hello3=()=>{}${this.name}`)// 输出全局 假如使用let 将输出空
+            }
+        }
+        person2.Hello1(); person2.Hello2(); person2.Hello3();
+
+
+    </script>
+</body>
+</html>
