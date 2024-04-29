@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        
+        //延迟队列
+        setTimeout(function(){
+           Promise.resolve().then(()=>{
+            console.log(4);
+            });
+            console.log(1);
+        },0);
+
+        //微任务队列
+        Promise.resolve().then(function(){
+            setTimeout(function(){
+                console.log(5);
+            },0);
+            console.log(2);
+        });
+        
+        //同步队列
+        function a(){
+            console.log(3);
+        }
+        a();
+        //输入结果为3,2,1,4,5
+
+
+
+        //延迟，不阻塞主进程 输出3 2 1 4 5 6 
+        sleep(2000).then(()=>{
+            console.log(6);
+        });
+
+        // sleep2(2000);//会阻塞主进程 输出3 6 2 1 4  5 
+        // console.log(6);
+        
+        //延迟阻塞1
+        function sleep(time){
+            return new Promise((resolve,reject)=>{
+                setTimeout(resolve,time);
+            });
+        }
+        
+        //延迟阻塞2
+        function sleep2(ms){
+            const start = new Date();
+            let now = start;
+            while (now - start < ms) {
+                now = new Date();
+            }
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
